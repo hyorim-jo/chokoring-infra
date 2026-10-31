@@ -1,0 +1,32 @@
+name: db
+
+# 프로젝트마다 DB + 전용 계정을 만든다.
+services:
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3306:3306"
+    command: >
+      --innodb-buffer-pool-size=128M
+      --performance-schema=OFF
+      --max-connections=100
+    mem_limit: 512m
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 40s
+    networks: [db]
+
+networks:
+  db:
+    name: db
+
+volumes:
+  mysql_data:
+    external: true
+    name: speakat_mysql_data
