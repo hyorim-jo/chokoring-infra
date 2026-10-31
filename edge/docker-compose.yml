@@ -1,0 +1,19 @@
+name: edge
+services:
+  caddy:
+    image: lucaslorentz/caddy-docker-proxy:2.13-alpine
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment:
+      CADDY_INGRESS_NETWORKS: edge
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - caddy_data:/data
+    networks: [edge]
+    labels:
+      caddy.email: hyorim.jo.dev@gmail.com
+networks:
+  edge:
+    name: edge
+volumes:
+  caddy_data:
