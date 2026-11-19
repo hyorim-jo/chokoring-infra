@@ -38,9 +38,12 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: MYSQL_ROOT_PASSWORD
           script: |
             set -euo pipefail
             cd ~/db
             docker compose pull
             docker compose up -d --remove-orphans
             docker compose ps
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
