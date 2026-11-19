@@ -10,8 +10,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - caddy_data:/data
     networks: [edge]
-    labels:
-      caddy.email: hyorim.jo.dev@gmail.com
 networks:
   edge:
     name: edge
