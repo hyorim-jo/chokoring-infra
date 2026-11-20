@@ -31,4 +31,4 @@ networks:
 volumes:
   mysql_data:
     external: true
-    name: speakat_mysql_data
+    name: mysql_data
