@@ -49,6 +49,14 @@ resource "aws_security_group" "shared" {
   }
 
   ingress {
+    description     = "SSH from Jenkins"
+    from_port       = 22
+    to_port         = 22
+    protocol        = "tcp"
+    security_groups = [aws_security_group.jenkins.id]
+  }
+
+  ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
